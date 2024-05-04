@@ -3,6 +3,7 @@
 """
 
 from datetime import datetime
+from os.path import isdir
 from fabric.api import local
 
 
