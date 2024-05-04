@@ -2,11 +2,25 @@
 """ Distribute an archive to a web server
 """
 import os.path
-from fabric.api import env, put, run
+from datetime import datetime
+from fabric.api import env, put, run, local
 
 env.user = "ubuntu"
 env.key_filename = "/home/ahmedsaad/.ssh/id_rsa"
 env.hosts = ["35.153.79.28", "100.24.74.193"]
+
+
+def do_pack():
+    """Generates a tgz archive"""
+    try:
+        date = datetime.now().strftime("%Y%m%d%H%M%S")
+        if os.path.isdir("versions") is False:
+            local("mkdir versions")
+        file_name = "versions/web_static_{}.tgz".format(date)
+        local("tar -cvzf {} web_static".format(file_name))
+        return file_name
+    except:
+        return None
 
 
 def do_deploy(archive_path):
@@ -52,3 +66,11 @@ def do_deploy(archive_path):
     print("New version deployed!")
 
     return True
+
+
+def deploy():
+    """Create and distribute an archive to a web server."""
+    file = do_pack()
+    if file is None:
+        return False
+    return do_deploy(file)
