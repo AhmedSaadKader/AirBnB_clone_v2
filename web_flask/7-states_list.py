@@ -17,12 +17,14 @@ app.url_map.strict_slashes = False
 def states_list():
     """Returns the states list on route('/states_list')
     """
-    all_states = storage.all(State)
+    all_states = storage.all("State")
     return render_template('7-states_list.html', all_states=all_states)
 
 
 @app.teardown_appcontext
 def teardown_db(exception):
+    """Closes the storage session
+    """
     storage.close()
 
 
