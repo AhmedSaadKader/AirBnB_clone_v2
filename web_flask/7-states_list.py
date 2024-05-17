@@ -18,7 +18,6 @@ def states_list():
     """Returns the states list on route('/states_list')
     """
     all_states = storage.all(State)
-    print(all_states)
     return render_template('7-states_list.html', all_states=all_states)
 
 
