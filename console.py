@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ Console Module """
+import shlex
 import cmd
 import sys
 from models.base_model import BaseModel
@@ -10,7 +11,6 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
-import shlex
 
 
 class HBNBCommand(cmd.Cmd):
